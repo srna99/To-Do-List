@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class CategoryVIewControllerTableViewController: UITableViewController {
+class CategoryTableViewController: SwipeTableViewController {
 
     var categoryArray = [Category]()
     
@@ -19,13 +19,16 @@ class CategoryVIewControllerTableViewController: UITableViewController {
         super.viewDidLoad()
         
         loadCategories()
+        
+        tableView.rowHeight = 80.0
+        
     }
 
     // MARK: - Tableview Datasource Methods
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
         
         cell.textLabel?.text = categoryArray[indexPath.row].name
         
@@ -78,8 +81,6 @@ class CategoryVIewControllerTableViewController: UITableViewController {
             
             self.saveCategories()
             
-            self.tableView.reloadData()
-            
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (action) in
@@ -102,6 +103,15 @@ class CategoryVIewControllerTableViewController: UITableViewController {
         
     }
     
+    //MARK: - Delete Data From Swipe
+    
+    override func updateModel(at indexPath: IndexPath) {
+        
+        context.delete(self.categoryArray[indexPath.row])
+        categoryArray.remove(at: indexPath.row)
+
+    }
+    
     //MARK: - Model Manipulation Methods
     
     func saveCategories() {
@@ -112,6 +122,8 @@ class CategoryVIewControllerTableViewController: UITableViewController {
         catch {
             print("Error saving context, ", error)
         }
+        
+        tableView.reloadData()
         
     }
     

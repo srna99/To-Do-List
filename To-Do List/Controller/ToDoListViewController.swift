@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class ToDoListViewController: UITableViewController {
+class ToDoListViewController: SwipeTableViewController {
 
     var itemArray = [Item]()
     
@@ -25,14 +25,17 @@ class ToDoListViewController: UITableViewController {
         super.viewDidLoad()
 
         loadItems()
+        
+        tableView.rowHeight = 80.0
+
     }
 
     //MARK: - Tableview Datasource Methods
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
-        
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
+
         cell.textLabel?.text = itemArray[indexPath.row].title
         
         //Ternary operator -> value = condition ? valueIfTrue : valueIfFalse
@@ -108,6 +111,15 @@ class ToDoListViewController: UITableViewController {
         }
         
         present(alert, animated: true, completion: nil)
+        
+    }
+    
+    //MARK: - Delete Data From Swipe
+    
+    override func updateModel(at indexPath: IndexPath) {
+        
+        context.delete(itemArray[indexPath.row])
+        itemArray.remove(at: indexPath.row)
         
     }
     
