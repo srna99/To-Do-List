@@ -40,10 +40,10 @@ class CategoryVIewControllerTableViewController: UITableViewController {
     //MARK: - Tableview Delegate and Segue Methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        performSegue(withIdentifier: "goToItems", sender: self)
         
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        performSegue(withIdentifier: "goToItems", sender: self)
         
     }
     
@@ -53,7 +53,9 @@ class CategoryVIewControllerTableViewController: UITableViewController {
             
             let destination = segue.destination as! ToDoListViewController
             
-            
+            if let indexPath = tableView.indexPathForSelectedRow {
+                destination.selectedCategory = categoryArray[indexPath.row]
+            }
             
         }
         
