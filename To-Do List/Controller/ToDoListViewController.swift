@@ -36,32 +36,19 @@ class ToDoListViewController: SwipeTableViewController {
         
         updateAppTheme(with: color)
         searchBar.barTintColor = color
-        
     }
-    
-//    override func viewWillDisappear(_ animated: Bool) {
-//
-//        guard let originalColor = UIColor(hexString: "FF7E79") else { fatalError() }
-//
-//        Chameleon.setGlobalThemeUsingPrimaryColor(originalColor, with: .light)
-//
-//        navigationController?.navigationBar.barTintColor = originalColor
-//        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.flatWhite() as UIColor]
-//
-//    }
     
     func updateAppTheme(with color : UIColor) {
         
         guard let navBar = navigationController?.navigationBar else { fatalError("Navigation bar doesn't exist") }
         
-        Chameleon.setGlobalThemeUsingPrimaryColor(color, with: .contrast)
-        
         navBar.barTintColor = color
         
         let contrastingColor : UIColor = UIColor(contrastingBlackOrWhiteColorOn: color, isFlat: true)
         
+        navBar.tintColor = contrastingColor
         navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : contrastingColor]
-        
+
         title = selectedCategory!.name
         
     }
@@ -80,6 +67,7 @@ class ToDoListViewController: SwipeTableViewController {
         
         cell.backgroundColor = color
         cell.textLabel?.textColor = UIColor(contrastingBlackOrWhiteColorOn: color, isFlat: true)
+        cell.tintColor = UIColor(contrastingBlackOrWhiteColorOn: color, isFlat: true)
         
         //Ternary operator -> value = condition ? valueIfTrue : valueIfFalse
         //cell.accessoryType = itemArray[indexPath.row].done ? .checkmark : .none

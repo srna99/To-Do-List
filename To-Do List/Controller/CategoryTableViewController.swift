@@ -18,7 +18,7 @@ class CategoryTableViewController: SwipeTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         loadCategories()
     }
     
@@ -26,13 +26,14 @@ class CategoryTableViewController: SwipeTableViewController {
         
         guard let originalColor = UIColor(hexString: "FF7E79") else { fatalError() }
         
-        Chameleon.setGlobalThemeUsingPrimaryColor(originalColor, with: .light)
+        guard let navBar = navigationController?.navigationBar else { fatalError() }
         
-        navigationController?.navigationBar.barTintColor = originalColor
-        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.flatWhite() as UIColor]
+        navBar.barTintColor = originalColor
+        navBar.tintColor = UIColor.flatWhite()
+        navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.flatWhite() as UIColor]
         
     }
-
+    
     // MARK: - Tableview Datasource Methods
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -92,7 +93,7 @@ class CategoryTableViewController: SwipeTableViewController {
             
             let newCategory = Category(context: self.context)
             newCategory.name = textField.text!
-            newCategory.colorHex = UIColor(randomFlatColorOf: .light).hexValue()
+            newCategory.colorHex = UIColor.randomFlat().hexValue()
             
             self.categoryArray.append(newCategory)
             
