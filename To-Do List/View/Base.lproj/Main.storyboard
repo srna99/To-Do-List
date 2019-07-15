@@ -34,7 +34,6 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="To-Do List" id="mYD-TY-7nJ">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="n0f-8a-3oI">
-                            <color key="tintColor" red="0.96470588239999999" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="addCategoryPressed:" destination="8Vj-Vm-pty" id="lsJ-wk-KhW"/>
                             </connections>
@@ -89,13 +88,15 @@
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Items" id="UAM-K3-wyp">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="ABL-YY-wGW">
-                            <color key="tintColor" red="0.96470588239999999" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="addItemPressed:" destination="C7H-IX-77Y" id="vAZ-uV-kPC"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="searchBar" destination="ihZ-hi-z4e" id="57y-Xc-R6F"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pXC-Ox-78C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -109,7 +110,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="LfR-v2-CxK">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="1" green="0.49327188729999999" blue="0.47399842739999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="1" green="0.49411764705882355" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" red="0.96470588239999999" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                         </textAttributes>

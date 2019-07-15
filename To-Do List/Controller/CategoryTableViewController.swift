@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import ChameleonFramework
 
 class CategoryTableViewController: SwipeTableViewController {
 
@@ -19,8 +20,16 @@ class CategoryTableViewController: SwipeTableViewController {
         super.viewDidLoad()
         
         loadCategories()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         
-        tableView.rowHeight = 80.0
+        guard let originalColor = UIColor(hexString: "FF7E79") else { fatalError() }
+        
+        Chameleon.setGlobalThemeUsingPrimaryColor(originalColor, with: .light)
+        
+        navigationController?.navigationBar.barTintColor = originalColor
+        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.flatWhite() as UIColor]
         
     }
 
@@ -30,7 +39,14 @@ class CategoryTableViewController: SwipeTableViewController {
         
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         
-        cell.textLabel?.text = categoryArray[indexPath.row].name
+        let currentCategory = categoryArray[indexPath.row]
+        
+        cell.textLabel?.text = currentCategory.name
+        
+        let color = UIColor(hexString: currentCategory.colorHex)
+        
+        cell.backgroundColor = color
+        cell.textLabel?.textColor = UIColor(contrastingBlackOrWhiteColorOn: color, isFlat: true)
         
         return cell
         
@@ -76,6 +92,7 @@ class CategoryTableViewController: SwipeTableViewController {
             
             let newCategory = Category(context: self.context)
             newCategory.name = textField.text!
+            newCategory.colorHex = UIColor(randomFlatColorOf: .light).hexValue()
             
             self.categoryArray.append(newCategory)
             
